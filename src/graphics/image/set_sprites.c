@@ -22,15 +22,47 @@ int	set_sprite_array(char *path)
 	while (is_parsing_ongoing)
 	{
 		is_parsing_ongoing = set_img_file_obj(&file, lines, &i);
+		/*
+typedef struct s_img
+{
+	char		*path; 			//field
+	char		*path_shadow;	//field
+	t_ivec2		size;
+	GLubyte		*buf;
+	GLubyte		*buf_shadow;
+	int			segment_len;	//field
+	t_img_seg	*seg;			//field:t_img_seg
+}	t_img;
+
+typedef struct s_img_seg
+{
+	char	*id;				//field
+	t_ivec2	size;				//field
+	t_ivec2	shadow_offset;		//field
+	int		still_frame;		//field
+	int		cycle_len;			//field
+	long	cycle_time_in_ms;	//field
+	t_ivec2	*cycle;				//field
+}	t_img_seg;
+
+typedef struct s_spr
+{
+	char	*id;
+	t_ivec2	size;
+	t_ivec2	shadow_offset;
+	int		still_frame;
+	int		cycle_len;
+	int		cycle_index;
+	long	elapsed_time_in_ms;
+	long	cycle_time_in_ms;
+	t_color	**cycle;
+	t_color	**cycle_shadow;
+}	t_spr;
+		*/
 	}
 
 
-	// free file lines
-	i = 0;
-	while (lines[i])
-		free(lines[i++]);
-	free(lines);
-	//
+	free_json_content(lines);
 	return (1);
 
 	/*

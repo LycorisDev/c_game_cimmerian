@@ -2,7 +2,6 @@
     {
         "path": "img/sprites/mg_cursor.png",
         "path_shadow": "",
-        "segment_len": 1,
         "segments": [
             {
                 "id": "cursor",
@@ -21,7 +20,6 @@
     {
         "path": "img/sprites/monogram.png",
         "path_shadow": "",
-        "segment_len": 1,
         "segments": [
             {
                 "id": "font_default",
@@ -134,7 +132,6 @@
     {
         "path": "img/sprites/mc_soul.png",
         "path_shadow": "img/sprites/mc_soul_shadow.png",
-        "segment_len": 3,
         "segments": [
             {
                 "id": "soul_idle",
