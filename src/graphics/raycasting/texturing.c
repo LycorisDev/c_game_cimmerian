@@ -43,6 +43,8 @@ static void	wall_texturing(t_map *m, t_frame *f, t_ray *r)
 	img = get_texture(m, r);
 	if (!img)
 		return ;
+	if (r->m_index.x == 17 && r->m_index.y == 6)
+		img = g_man.map->img[11];
 
     // Where exactly the wall was hit
 	double	wall_x;

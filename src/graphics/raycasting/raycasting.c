@@ -132,11 +132,24 @@ static int	perform_dda(t_map *m, double cam_x, t_ray *r)
 
 static void	set_line(t_frame *f, int x, t_ray *r)
 {
-	r->line_height = (int)(f->size.y / r->perp_wall_dist * g_man.res.h_mod);
-	r->coord1.x = x;
-	r->coord1.y = max(-r->line_height / 2 + f->size.y / 2, 0);
-	r->coord2.x = x;
-	r->coord2.y = min(r->line_height / 2 + f->size.y / 2, f->size.y - 1);
+	if (r->m_index.x == 17 && r->m_index.y == 6)
+	{
+		double height = 1.5 * g_man.res.h_mod;
+		int cubic_height = (int)(f->size.y / r->perp_wall_dist * g_man.res.h_mod);
+		r->line_height = cubic_height * height;
+		r->coord1.x = x;
+		r->coord1.y = max(-r->line_height / 2 + f->size.y / 2, 0);
+		r->coord2.x = x;
+		r->coord2.y = min(cubic_height / 2 + f->size.y / 2, f->size.y - 1);
+	}
+	else
+	{
+		r->line_height = (int)(f->size.y / r->perp_wall_dist * g_man.res.h_mod);
+		r->coord1.x = x;
+		r->coord1.y = max(-r->line_height / 2 + f->size.y / 2, 0);
+		r->coord2.x = x;
+		r->coord2.y = min(r->line_height / 2 + f->size.y / 2, f->size.y - 1);
+	}
 	return ;
 }
 

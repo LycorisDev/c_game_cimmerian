@@ -41,31 +41,35 @@ void	cast_floor_and_ceiling(t_frame *f, t_map *m)
 				int cellY = (int)floorY;
 
 				// floor
-				int floorTexture = !((cellX + cellY) % 2) ? 4 : 6;
-				int texWidth = m->img[floorTexture]->size.x;
-				int texHeight = m->img[floorTexture]->size.y;
-				int tx = (int)(texWidth * (floorX - cellX)) % texWidth;
-				int ty = (int)(texHeight * (floorY - cellY)) % texHeight;
+				t_img *tex = m->cells[cellY * m->size.x + cellX].tex_floor;
+				int tx;
+				int ty;
 				t_color color;
-				color = ((t_color *)m->img[floorTexture]->buf)[texWidth * ty + tx];
-				color.r /= 2;
-				color.g /= 2;
-				color.b /= 2;
-				apply_wall_fog(&color, m->fog_color, rowDistance, m->dof);
-				draw_point(f, color, x, y);
+				if (tex)
+				{
+					tx = (int)(tex->size.x * (floorX - cellX)) % tex->size.x;
+					ty = (int)(tex->size.y * (floorY - cellY)) % tex->size.y;
+					color = ((t_color *)tex->buf)[tex->size.x * ty + tx];
+					color.r /= 2;
+					color.g /= 2;
+					color.b /= 2;
+					apply_wall_fog(&color, m->fog_color, rowDistance, m->dof);
+					draw_point(f, color, x, y);
+				}
 
 				// ceiling
-				int ceilingTexture = 7;
-				texWidth = m->img[ceilingTexture]->size.x;
-				texHeight = m->img[ceilingTexture]->size.y;
-				tx = (int)(texWidth * (floorX - cellX)) % texWidth;
-				ty = (int)(texHeight * (floorY - cellY)) % texHeight;
-				color = ((t_color *)m->img[ceilingTexture]->buf)[texWidth * ty + tx];
-				color.r /= 2;
-				color.g /= 2;
-				color.b /= 2;
-				apply_wall_fog(&color, m->fog_color, rowDistance, m->dof);
-				draw_point(f, color, x, f->size.y - y - 1);
+				tex = m->cells[cellY * m->size.x + cellX].tex_ceiling;
+				if (tex)
+				{
+					tx = (int)(tex->size.x * (floorX - cellX)) % tex->size.x;
+					ty = (int)(tex->size.y * (floorY - cellY)) % tex->size.y;
+					color = ((t_color *)tex->buf)[tex->size.x * ty + tx];
+					color.r /= 2;
+					color.g /= 2;
+					color.b /= 2;
+					apply_wall_fog(&color, m->fog_color, rowDistance, m->dof);
+					draw_point(f, color, x, f->size.y - y - 1);
+				}
 			}
 
 			floorX += floorStepX;
