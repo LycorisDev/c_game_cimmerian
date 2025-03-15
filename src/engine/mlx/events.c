@@ -1,37 +1,41 @@
 #include "cimmerian.h"
 
-static int	on_resize(t_man *man);
+//TODO: Analyse this whole file
+
+# define BTN_CLICK_LEFT  1
+# define BTN_CLICK_WHEEL 2
+# define BTN_CLICK_RIGHT 3
+# define BTN_SCROLL_UP   4
+# define BTN_SCROLL_DOWN 5
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_ENTER  65293
+# define KEY_ESCAPE 65307
+# define KEY_LEFT   65361
+# define KEY_UP     65362
+# define KEY_RIGHT  65363
+# define KEY_DOWN   65364
+# define KEY_F11    65480
 
 int	on_close(t_man *man)
 {
-	release_resources(man);
+	deinit(man);
 	exit(0);
 	return (0);
 }
 
 int	on_mouse_button(int button, int x, int y, t_man *man)
 {
-	int	thickness;
-
 	if (button == BTN_CLICK_LEFT)
 	{
-		thickness = man->frame[0].thickness;
-		man->click = 1;
-		set_ivec2(&man->click_pos, x / thickness, y / thickness);
 	}
-	else if (button == BTN_SCROLL_UP && man->zoom < 10)
+	else if (button == BTN_SCROLL_UP)
 	{
-		if (man->zoom < 3)
-			man->zoom += 1;
-		else
-			man->zoom += 2;
 	}
-	else if (button == BTN_SCROLL_DOWN && man->zoom > 1)
+	else if (button == BTN_SCROLL_DOWN)
 	{
-		if (man->zoom <= 3)
-			man->zoom -= 1;
-		else
-			man->zoom -= 2;
 	}
 	return (0);
 }
@@ -47,7 +51,9 @@ int	on_key_press(int keycode, t_man *man)
 	if (keycode == KEY_ESCAPE)
 		return (on_close(man));
 	else if (keycode == KEY_F11)
-		return (on_resize(man));
+	{
+		//on_resize(man);
+	}
 	else
 	{
 		set_ivec2(&move, 0, 0);
@@ -65,7 +71,8 @@ int	on_key_press(int keycode, t_man *man)
 	return (0);
 }
 
-static int	on_resize(t_man *man)
+/*
+static void	on_resize(t_man *man)
 {
 	t_ivec2	size;
 	int		thickness;
@@ -79,14 +86,15 @@ static int	on_resize(t_man *man)
 	}
 	if (man->size.x == size.x)
 		set_ivec2(&size, RES_WIDTH, RES_HEIGHT);
-	mlx_destroy_mandow(man->mlx, man->window);
+	mlx_destroy_window(man->mlx, man->window);
 	mlx_destroy_image(man->mlx, man->frame[0].img);
 	mlx_destroy_image(man->mlx, man->frame[1].img);
 	mlx_destroy_image(man->mlx, man->frame[2].img);
-	if (!create_mandow(man, size.x, size.y))
+	if (!create_window(man, size.x, size.y))
 	{
-		release_resources(man);
+		deinit(man);
 		exit(1);
 	}
-	return (0);
+	return ;
 }
+*/
