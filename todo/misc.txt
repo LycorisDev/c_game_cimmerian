@@ -1,6 +1,5 @@
 [COMMON] SOUND
 - 3D sound for collectible.
-- Norm the audio code.
 
 [COMMON] PERF
 - Do the thing with the caching of trigo values. Does it help performance?
